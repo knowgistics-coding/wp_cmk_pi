@@ -1,0 +1,85 @@
+@import 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css';
+@import 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.min.css';
+@import 'variables';
+
+:root {
+  --admin-height: 32px;
+  --masthead-height: 64px;
+  
+  @each $key,$val in $fonts {
+    --font-#{$key} : #{$val}px; 
+  }
+}
+@media screen and (max-width: 782px){
+  :root {
+    --admin-height: 46px;
+  }
+}
+
+html, body { background-color:var(--colophon-bg); }
+body {
+  line-height:1.5; padding-top:var(--masthead-height); font-family:$defaultFont;
+}
+input, button {
+  cursor: pointer;
+  &:focus { outline:none; }
+}
+h1,h2,h3,h4,h5,h6 { font-family:$prompt; }
+.contain { object-fit:contain!important; }
+
+[tbd], [tbds], [tbds] * { border:solid 1px red; box-sizing:border-box; }
+
+@import 'head';
+@import 'foot';
+@import 'dynamic';
+@import 'single-post';
+@import 'single-book';
+
+.photo-credit {
+  position:absolute; top:0; left:0; font-size:var(--font-xxs); background-color:rgba(0,0,0,.5); color:white; padding:0 .25rem; line-height:1.5;
+  a { color:inherit; text-decoration:underline; }
+}
+
+/* ------------------------------------------------------------
+## Comments
+------------------------------------------------------------ */
+.comments-area {
+  padding-top:3rem; border-top:solid 1px #ccc;
+  .comments-title { font-size:var(--font-l); margin-bottom:1rem; font-weight:bold; }
+  .comment-list {
+    padding:0;
+    li {
+      background-color:white; margin-top:1rem; @extend %border; padding:1rem;
+      .comment-body {
+        .comment-meta {
+          margin-bottom:.5rem;
+          .comment-author {
+            .avatar { border-radius:50%; }
+          }
+          .comment-metadata { @extend %category; }
+        }
+        .reply {
+          font-size:var(--font-xs);
+          a { background-color:$gray-light; color:white; padding:0 .5rem; border-radius:1rem; line-height:14px; height:16px; display:inline-block; }
+        }
+      }
+      .children { padding-inline-start:0; }
+    }
+  }
+
+  .comment-reply-title { font-size:var(--font-l); font-weight:bold; margin-bottom:1rem; }
+  .logged-in-as, .notes { font-size:var(--font-xs); margin-bottom:1rem; display:block; }
+  .comment-form-comment {
+    label { display:block; }
+    textarea { width:100%; }
+  }
+  .form-submit {
+    #submit { font-weight:bold; }
+  }
+}
+
+.customize-partial-edit-shortcuts-shown {
+  .site-branding {
+    border:dashed 1px red;
+  }
+}

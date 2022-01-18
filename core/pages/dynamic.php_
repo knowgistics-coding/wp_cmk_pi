@@ -1,0 +1,198 @@
+<?php
+$query = get_posts(array('post_type'=>'page','numberposts'=>-1,'orderby'=>'post_title','order'=>'ASC'));
+foreach($query as $post){ $pages[] = array("label"=>$post->post_title,"value"=>$post->ID); }
+
+$args = array(
+  'hide_empty' => false,
+);
+foreach(get_categories($args) as $cat){
+  $category[] = array("label"=>$cat->cat_name,"value"=>$cat->term_id);
+}
+$query = get_posts(array('post_type'=>'any','post_status'=>'publish','numberposts'=>-1,'orderby'=>'post_title','order'=>'ASC'));
+foreach($query as $post){ $posts[] = array("label"=>$post->post_title,"value"=>$post->ID); }
+?>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+<style>
+.badge-pill { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:120px; }
+.dashicons { font-size:inherit;width:12px;height:12px;cursor:pointer; }
+</style>
+
+<div class="container" ng-app="main-app" ng-controller="main-ctrl">
+  <div class="card p-0 mx-auto" style="width:640px;">
+    <div class="card-body">
+      <h5 class="card-title mb-5">Dynamic Setting</h5>
+      <div class="d-flex align-items-center mb-3">
+        <span>Select&nbsp;Page:&nbsp;</span>
+        <select class="form-control form-control-sm" ng-model="dnm.page" ng-change="dnm.pageChange()"><?php
+          echo '<option value="">-- เลือก Page --</option>';
+          foreach($pages as $page){ echo '<option value="'.$page["value"].'">'.$page["label"].'</option>'; }
+        ?></select>
+        <a ng-href="<?php echo get_site_url(); ?>/?p={{ dnm.page }}" class="button ml-1" target="_blank" ng-if="!!dnm.page">View</a>
+      </div>
+      <!-- Current Sections -->
+      <table class="table table-sm mb-5">
+        <thead><tr>
+          <th></th>
+          <th>Values</th>
+        </tr></thead>
+        <tr ng-repeat="section in dnm.sections track by $index" style="font-size:12px;line-height:1.1;">
+          <td style="width:40px;">
+            <span class="dashicons dashicons-admin-settings" ng-click="dnm.sectionEdit(section)"></span>
+            <span class="dashicons dashicons-trash" ng-click="dnm.sectionRemove(section)"></span>
+          </td>
+          <td><div ng-repeat="(ks,sc) in section.value">
+            <b ng-bind="ks"></b>:&nbsp;<span ng-bind="sc"></span>
+          </div></td>
+        </tr>
+      </table>
+      <!-- Sections Setting -->
+      <h6 class="card-subtitle mb-2 text-muted">Add/Edit Section</h6>
+      <table class="table" style="width:100%">
+        <tr>
+          <td>Type</td>
+          <td width="100%"><select class="form-control" ng-model="dnm.section.value.type">
+            <option value="slide">Slide</option>
+            <option value="card">Card</option>
+            <option value="cover">Cover</option>
+            <option value="text">text</option>
+            <option value="square">Square</option>
+          </select></td>
+        </tr><tr>
+          <td>From</td>
+          <td><select class="form-control" ng-model="dnm.section.value.from" ng-change="dnm.fromChange()">
+            <option value="category">Category</option>
+            <option value="id">ID</option>
+          </select></td>
+        </tr><tr>
+          <td>Items</td>
+          <td>
+            <div class="d-flex">
+              <select class="form-control" ng-model="dnm.item">
+                <option ng-repeat="item in dnm.list" ng-value="{{ item.value }}" ng-bind="item.value+': '+item.label"></option>
+              </select>
+              <button class="button ml-2" ng-click="dnm.itemAdd()">Add Item</button>
+            </div>
+            <small class="form-text text-muted">เลือก Item และกด Add Item</small>
+            <div class="mt-2"><span class="badge badge-pill badge-secondary mr-1" ng-repeat="item in dnm.section.value.items track by $index" ng-attr-title="{{ item.label }}">
+              <span class="dashicons dashicons-trash" ng-click="dnm.section.value.items.splice($index,1)"></span>
+              <span ng-bind="item.label"></span>
+            </span></div>
+          </td>
+        </tr><tr>
+          <td>Num:</td>
+          <td>
+            <input class="form-control form-control-sm" type="number" ng-model="dnm.section.value.num">
+            <small class="form-text text-muted">จำนวน Post ต่อ Section</small>
+          </td>
+        </tr><tr>
+          <td>Label:</td>
+          <td>
+            <input class="form-control form-control-sm" type="text" ng-model="dnm.section.value.label">
+            <small class="form-text text-muted">ชื่อหัวเรื่อง สำหรับ Type Card</small>
+          </td>
+        </tr><tr>
+          <td>Last:</td>
+          <td><small class="form-text text-muted" style="font-size:12px;" ng-bind="dnm.section.prev_value"></small></td>
+        </tr><tr>
+          <td align="center" colspan="2">
+            <button class="button button-primary" ng-click="dnm.addSection()" ng-if="!!dnm.page && dnm.section.value.items.length>0">Add/Update Section</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const lists = {
+  id: <?php echo json_encode($posts); ?>,
+  category: <?php echo json_encode($category); ?>,
+};
+const app = angular.module("main-app",[]);
+app.controller("main-ctrl",["$scope","$sce",function($scope,$sce){
+  $scope.dnm = new Dynamic(lists,$scope,$sce);
+}]);
+function Dynamic(lists,$scope,$sce){
+  this.page = "";
+  this.lists = lists;
+  this.items = [];
+  this.section = {};
+  this.sections = [];
+
+  const reset = ()=>{
+    this.section.value = {
+      type: "slide",
+      from: "category",
+      items: {},
+    };
+  };
+
+  this.pageChange = ()=>{
+    jQuery.post(ajaxurl,{"action":"dynamic_page_load","data":this.page},(res)=>{
+      this.sections = res;
+      $scope.$apply();
+    }).fail(err=>console.log(err.responseText));
+  };
+  
+  this.sectionEdit = (section)=>{
+    if(!!section.value.num){ section.value.num = parseInt(section.value.num); }
+    this.section = section;
+  };
+  
+  this.sectionRemove = (section)=>{
+    if(confirm("คุณต้องการลบหรือไม่?")){
+      jQuery.post(ajaxurl,{
+        action:"dynamic_section_remove",
+        data:{ id:this.page, prev_value:section.prev_value }
+      },(res)=>{
+        this.pageChange();
+        console.log(res,section.prev_value);
+      });
+    }
+  };
+  
+  this.fromChange = ()=>{
+    this.list = this.lists[this.section.value.from];
+    this.section.value.items = [];
+  };
+  
+  this.itemAdd = ()=>{
+    if(!!this.item){
+      let list = {};
+      Object.keys(this.list).map(index=>{lists[this.list[index].value]=this.list[index].label});
+      this.section.value.items.push({id:this.item,label:lists[this.item]});
+      this.item = "";
+    }
+  };
+  
+  this.addSection = ()=>{
+    jQuery.post(ajaxurl,{
+      "action":"dynamic_update",
+      "data":{
+        "id":this.page,
+        "section":this.section,
+      }
+    },(res)=>{
+      console.log(res,this.section);
+      this.pageChange();
+    });
+  };
+  
+  // Initial
+  reset();
+  this.fromChange();
+}
+</script>
+
+<?php
+$posts = wp_get_recent_posts(array(
+  "post_per_page" => -1,
+  "s" => ".pdf",
+),ARRAY_A);
+foreach($posts as $post){
+  echo $post["post_content"];
+}
+?>

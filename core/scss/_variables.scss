@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css?family=Prompt:300,600');
+
+@font-face {
+    font-family: 'THSarabunNew';
+    src: url('../fonts/thsarabunnew-webfont.eot');
+    src: url('../fonts/thsarabunnew-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/thsarabunnew-webfont.woff') format('woff'),
+         url('../fonts/thsarabunnew-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'THSarabunNew';
+    src: url('../fonts/thsarabunnew_bolditalic-webfont.eot');
+    src: url('../fonts/thsarabunnew_bolditalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/thsarabunnew_bolditalic-webfont.woff') format('woff'),
+         url('../fonts/thsarabunnew_bolditalic-webfont.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'THSarabunNew';
+    src: url('../fonts/thsarabunnew_italic-webfont.eot');
+    src: url('../fonts/thsarabunnew_italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/thsarabunnew_italic-webfont.woff') format('woff'),
+         url('../fonts/thsarabunnew_italic-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'THSarabunNew';
+    src: url('../fonts/thsarabunnew_bold-webfont.eot');
+    src: url('../fonts/thsarabunnew_bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/thsarabunnew_bold-webfont.woff') format('woff'),
+         url('../fonts/thsarabunnew_bold-webfont.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Yu gothic';
+    src: url('../fonts/yugothil.ttf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.thsarabunnew{
+ font-family: 'THSarabunNew', sans-serif;
+}
+
+$defaultFont: "THSarabunNew", "Yu gothic", Helvatica, sans-serif;
+$prompt: "Prompt",$defaultFont;
+
+$fonts: ( xxxl:60, xxl:48, xl:36, l:24, m:19, r:16, s:14, xs:12, xxs:10 );
+
+$gray-base:     #000 !default;
+$gray-darker:   lighten($gray-base, 13.5%) !default; // #222
+$gray-dark:     lighten($gray-base, 20%) !default;   // #333
+$gray:          lighten($gray-base, 33.5%) !default; // #555
+$gray-light:    lighten($gray-base, 46.7%) !default; // #777
+$gray-lighter:  lighten($gray-base, 93.5%) !default; // #eee
+$gray-lightest: lighten($gray-base, 97.5%) !default; // #eee
+$blue:          #007bff;
+$light-blue:    #B0BEC5;
+
+$breakpoint-xs: 0px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+$brightness:  70%;
+$box-shadow:  0 0 10px rgba(0,0,0,0.25);
+$border: solid 1px #ddd;
+
+$safe-width: calc(728px + 2rem);
+$cover-height: 60vh;
+
+/* ------------------------------------------------------------
+# Extend
+# Command: @extend %extend_name;
+------------------------------------------------------------ */
+%tbds {
+  border: 1px solid red; box-sizing: border-box;
+  * { border: 1px solid red; box-sizing: border-box; }
+}
+%border { border: 1px solid rgba(0,0,0,.125); }
+%box_shadow { box-shadow: #{$box-shadow}; }
+%text_shadow { text-shadow: 0 0 10px rgba(0,0,0,0.25); }
+%elem_fluid { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; }
+%elem_middle { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
+%text_overflow { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+%category {
+  color:lighten($gray-base,75%); font-size:var(--font-xs);
+  a { color:inherit; }
+}
+%tbds { border:solid 1px red; * { border:solid 1px red; } }
+
+/* ------------------------------------------------------------
+# Mixin
+# Command: @include mixin_name($var);
+------------------------------------------------------------ */
+@mixin ratio($a,$b) {
+  content: "";
+  display: block;
+  padding-top: calc(100% * #{$a} / #{$b});
+}
+@mixin mozkit($a,$b) {
+  -webkit-#{$a}: #{$b};
+  -moz-#{$a}: #{$b};
+  #{$a}: #{$b};
+}
+@mixin clip-text($url,$fallback:black) {
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-image: url($url);
+  background-size: cover;
+  background-position: center center;
+  color: $fallback;
+}
+@mixin block-count($a) {
+  width:calc( (100% / #{$a}) - (#{$a - 1}rem / #{$a}) );
+  &:nth-child(#{$a}n) { margin-right:0; }
+}
