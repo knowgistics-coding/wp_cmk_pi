@@ -37,7 +37,7 @@ class Encyclopedia {
     foreach ($categories as $key => $cat) {
       echo '<a href="'.get_site_url().'/encyclopedia/?cat='.$cat->term_id.'" class="cat-link">';
       if(!!$cat->description){
-        echo '<i class="big-icon far fa-'.$cat->description.'"></i>&nbsp;';
+        echo '<i class="big-icon far fa-'.$cat->description.'" style="color:#EA4335;"></i>&nbsp;';
       }
       echo '<span>'.$cat->name.'</span>';
       echo '</a>';
@@ -183,9 +183,6 @@ class Encyclopedia {
 #result-table th {
   border-left: none;
   border-right: none;
-}
-.cover-meta {
-  /* max-width: 480px; */
 }
 .shortcut-cat-search {
   margin: 3rem auto;
