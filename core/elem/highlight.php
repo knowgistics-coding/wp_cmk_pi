@@ -57,7 +57,7 @@ function render_hignlight_css(){
       padding-top: calc(100% * 2);
     }
     .dnm-highlight .content h1 {
-      font-size:var(--font-xl);
+      font-size:var(--font-l);
     }
     // .dnm-highlight .content .body {
     //   display: none;
