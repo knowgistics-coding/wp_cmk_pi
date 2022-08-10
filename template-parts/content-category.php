@@ -20,6 +20,6 @@ if(function_exists(category_parse)==!1){
 }
 ?>
 <tr id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<td><?php the_title( '<a href="' . esc_url( get_permalink() ) . '" target="_blank" style="color:#333"><i class="fas fa-chevron-right" style="color:var(--blue);"></i> ', '</a>' ); ?></td>
+	<td><?php the_title( '<a href="' . esc_url( get_permalink() ) . '" target="_blank" style="color:#333"><i class="fas fa-chevron-right" style="color:var(--hilight-color);"></i> ', '</a>' ); ?></td>
   <td><?php category_parse(get_the_ID()); ?></td>
 </tr><!-- #post-<?php the_ID(); ?> -->

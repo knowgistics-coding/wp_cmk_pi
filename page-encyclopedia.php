@@ -101,7 +101,7 @@ class Encyclopedia {
       echo '<tr id="post-'.$post["title"].'">
         <td>
           <a href="'.esc_url( get_permalink($post["ID"]) ).'" target="_blank" style="color:#333">
-            <i class="fas fa-chevron-right" style="color:var(--blue);"></i> 
+            <i class="fas fa-chevron-right" style="color:var(--hilight-color);"></i> 
             '.$titleBold.'
           </a>
         </td>
