@@ -35,7 +35,7 @@ function render_hignlight_css(){
     flex: 1;
     box-sizing: border-box;
     border-style: solid;
-    border-width: 3rem 1.5rem;
+    border-width: 0 1.5rem;
     border-color: transparent;
     text-align: center;
     overflow: hidden;
