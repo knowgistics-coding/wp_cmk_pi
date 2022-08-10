@@ -1,12 +1,22 @@
 <?php
-function render_hignlight_css(){
+function render_hignlight_css()
+{
   echo '<style>
   .dnm-highlight-container {
     max-width: 720px;
   }
   .dnm-highlight {
+    display: block;
     position: relative;
     background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+  .dnm-highlight:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 8px rgba(0,0,0,0.125);
   }
   .dnm-highlight:before {
     content: "";
@@ -67,17 +77,19 @@ function render_hignlight_css(){
   }
   </style>';
 }
-function render_hignlight($post){
+function render_hignlight($post)
+{
   $secondary = get_post_meta($post["ID"], 'phrain_secondaryTitle');
-  echo '<div class="dnm-highlight">
+  $author = get_post_meta($post["ID"], 'phrain_author');
+  echo '<div class="dnm-highlight" onclick="' . (count($author) > 0 ? 'window.location.href=\'' . esc_url($author[0]) . '\'' : "") . '">
     <div>
-      <div class="thumbnail" style="background-image:url(\''.$post["get_thumbnail"].'\')"></div>
+      <div class="thumbnail" style="background-image:url(\'' . $post["get_thumbnail"] . '\')"></div>
       <div class="content">
         <div class="mb-3">
-          <h1 style="color:#EA4335"><b>'.$post["post_title"].'</b></h1>
-          '.(count($secondary) > 0 ? '<h1>'.esc_html($secondary[0]).'</h1>' : ``).'
+          <h1 style="color:#EA4335"><b>' . $post["post_title"] . '</b></h1>
+          ' . (count($secondary) > 0 ? '<h1>' . esc_html($secondary[0]) . '</h1>' : ``) . '
         </div>
-        <div class="body">'.($post["post_content"]).'</div>
+        <div class="body">' . ($post["post_content"]) . '</div>
       </div>
     </div>
   </div>';

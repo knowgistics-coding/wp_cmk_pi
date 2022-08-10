@@ -48,7 +48,8 @@
 
       .text {
         line-height: 1.2;
-        font-family: $prompt;
+        // font-family: $prompt;
+        color: #757575;
 
         span {
           display: block;

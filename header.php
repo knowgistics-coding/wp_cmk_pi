@@ -37,7 +37,7 @@ if(is_single() || is_page()){
     <div class="site-end">
       <?php if($masthead_search_display=="true"){
         echo '<button class="menu-toggle" onclick="sm_toggle(\'#site-search\',true)">
-          <span class="text">
+          <span class="text thsarabunnew">
             <span class="primary">ค้นหา</span>
             <span class="primary" style="font-size:var(--font-xxs);">SEARCH</span>
           </span>
