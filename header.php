@@ -54,7 +54,7 @@ if(is_single() || is_page()){
           <?php endif; ?>
           <!--<span class="secondary">MENU</span>-->
         </span>
-        <i class="fas fa-chevron-left"></i>
+        <i class="fas fa-chevron-down"></i>
       </button>
     </div><!-- .site-end -->
     

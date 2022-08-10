@@ -19,11 +19,11 @@ class Dynamic {
   pageLoad = async () => {
     this.pages = await jQuery
       .get(ajaxurl + "?action=dynamic_page_list")
-      .fail(err=>console.log(err.responseText));
+      .fail((err) => console.log(err.responseText));
     this.items = await jQuery
       .get(ajaxurl + "?action=dynamic_items_load")
       .then((res) => JSON.parse(res))
-      .fail(err=>console.log(err.responseText));
+      .fail((err) => console.log(err.responseText));
     this.loading = false;
     this.apply?.();
   };
@@ -32,8 +32,7 @@ class Dynamic {
     Boolean(this.panels.length && typeof this.editIndex !== "number");
   isEditVisible = () => typeof this.editIndex === "number";
 
-  getViewLink = () =>
-    this.page ? `<?php echo get_site_url(); ?>/?p=${this.page}` : "#";
+  getViewLink = (siteUrl) => (this.page ? `${siteUrl}/?p=${this.page}` : "#");
   getNum = (str) => parseInt(str);
 
   onPageChange = async () => {
@@ -46,10 +45,11 @@ class Dynamic {
         },
         (res) => {
           this.panels = res;
+          console.log(this.panels);
           this.apply?.();
         }
       )
-      .fail(err=>console.log(err.responseText));
+      .fail((err) => console.log(err.responseText));
   };
   onEditPanel = (index) => {
     this.editIndex = index;
@@ -74,15 +74,29 @@ class Dynamic {
     }
   };
   onRemoveItem = (id) => {
-    this.editValue.items = this.editValue.items.filter(
-      (i) => i.id !== id
-    );
+    this.editValue.items = this.editValue.items.filter((i) => i.id !== id);
   };
   onEditCancel = () => {
     this.editIndex = false;
     this.editValue = null;
     this.editItemSelect = "";
   };
+  onAddSection() {
+    jQuery.post(
+      ajaxurl,
+      {
+        action: "dynamic_update",
+        data: {
+          id: this.page,
+          section: {},
+        },
+      },
+      async () => {
+        await this.onPageChange();
+        this.apply?.();
+      }
+    );
+  }
   onSave = () => {
     jQuery.post(
       ajaxurl,

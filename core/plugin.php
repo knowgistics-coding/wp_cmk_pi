@@ -87,6 +87,27 @@ if(function_exists("phrain_dynamic_menu")==false){
   add_action('wp_ajax_dynamic_items_load','dynamic_items_load');
   add_action('wp_ajax_nopriv_dynamic_items_load','dynamic_items_load');
 
+  // Dynamic Add
+  function dynamic_add(){
+    header('Content-Type: application/json');
+    if(isset($_POST["data"]["section"]["prev_value"])){
+      $prev_value = stripslashes($_POST["data"]["section"]["prev_value"]);
+      $res = update_post_meta(
+        $_POST["data"]["id"],
+        "dnm_section",
+        json_encode($_POST["data"]["section"]["value"],JSON_UNESCAPED_UNICODE),
+        $prev_value
+      );
+      echo json_encode($res);
+    } else {
+      $res = add_post_meta($_POST["data"]["id"],"dnm_section",json_encode($_POST["data"]["section"]["value"],JSON_UNESCAPED_UNICODE));
+      echo json_encode($res);
+    }
+    wp_die();
+  }
+  add_action('wp_ajax_dynamic_add','dynamic_add');
+  add_action('wp_ajax_nopriv_dynamic_add','dynamic_add');
+
 
   // Dynamic Update
   function dynamic_update(){

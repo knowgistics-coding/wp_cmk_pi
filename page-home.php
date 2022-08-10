@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Home
+ * Template Name: JP-arts Home
  * The template for displaying all pages
  *
  * This is the template that displays all pages by default.
@@ -183,9 +183,6 @@ class Encyclopedia {
 #result-table th {
   border-left: none;
   border-right: none;
-}
-.cover-meta {
-  /* max-width: 480px; */
 }
 .shortcut-cat-search {
   margin: 3rem auto;

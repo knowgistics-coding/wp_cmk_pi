@@ -27,7 +27,9 @@
         <option value="">-- เลือก Page --</option>
         <option ng-repeat="page in dnm.pages track by $index" ng-value="{{page.value}}" ng-bind="page.label"></option>
       </select>
-      <a class="btn btn-outline-secondary" ng-href="{{dnm.getViewLink()}}" target="_blank" ng-if="!!dnm.page" style="margin-left:0.5rem">View</a>
+      <a class="btn btn-outline-secondary" ng-href="{{dnm.getViewLink('<?php echo get_site_url(); ?>')}}" target="_blank" ng-if="!!dnm.page" style="margin-left:0.5rem">
+        View
+      </a>
     </div>
     <table class="table table-sm mt-5" ng-if="dnm.isTableVisible()">
       <tr ng-repeat="panel in dnm.panels track by $index">
@@ -42,6 +44,7 @@
         </td>
       </tr>
     </table>
+    <div><button class="btn btn-outline-primary btn-size-small" ng-click="dnm.onAddSection()">Add Section</button></div>
     <div ng-if="dnm.isEditVisible()">
       <h6 class="card-subtitle mt-5 mb-2 text-muted">Edit Section</h6>
       <table class="table" style="width:100%">
@@ -54,6 +57,8 @@
               <option value="text">Text</option>
               <option value="square">Square</option>
               <option value="cardslide">Card Slide</option>
+              <option value="highlight">Highlight</option>
+              <option value="jpaenc">สารานุกรม (only JP-Arts)</option>
             </select></td>
         </tr>
         <tr>
@@ -106,6 +111,21 @@
           </td>
         </tr>
         <tr>
+          <td>Order:</td>
+          <td>
+            <select class="form-control" ng-model="dnm.editValue.orderBy">
+              <option value="">-- select order --</option>
+              <option value="post_title">Title</option>
+              <option value="post_modified">Date</option>
+            </select>
+            <select class="form-control" ng-model="dnm.editValue.order">
+              <option value="">-- select sort --</option>
+              <option value="asc">asc</option>
+              <option value="desc">desc</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
           <td colspan="2">
             <button class="btn btn-outline-primary" ng-click="dnm.onSave()">Save</button>
             <button class="btn btn-outline-secondary" ng-click="dnm.onEditCancel()">Cancel</button>
@@ -116,7 +136,7 @@
   </div><!-- IF !dnm.loading -->
 </div>
 
-<script src="<?php echo get_template_directory_uri() . "/core/pages/dynamic/class.js?time=".time(); ?>"></script>
+<script src="<?php echo get_template_directory_uri() . "/core/pages/dynamic/class.js?time=" . time(); ?>"></script>
 <script>
   const app = angular.module("main-app", []);
   app.controller("main-ctrl", ["$scope", "$sce", async function($scope, $sce) {
