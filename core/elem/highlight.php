@@ -50,12 +50,18 @@ function render_hignlight_css(){
     display: none;
   }
   @media screen and (max-width: 768px){
+    .dnm-highlight>div {
+      flex-direction: column;
+    }
+    .dnm-highlight:before {
+      padding-top: calc(100% * 2);
+    }
     .dnm-highlight .content h1 {
-      font-size:var(--font-l);
+      font-size:var(--font-xl);
     }
-    .dnm-highlight .content .body {
-      display: none;
-    }
+    // .dnm-highlight .content .body {
+    //   display: none;
+    // }
   }
   </style>';
 }
