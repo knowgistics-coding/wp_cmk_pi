@@ -49,6 +49,14 @@ function render_hignlight_css(){
   .dnm-highlight .content img {
     display: none;
   }
+  @media screen and (max-width: 768px){
+    .dnm-highlight .content h1 {
+      font-size:var(--font-l);
+    }
+    .dnm-highlight .content .body {
+      display: none;
+    }
+  }
   </style>';
 }
 function render_hignlight($post){
@@ -61,7 +69,7 @@ function render_hignlight($post){
           <h1><b>'.$post["post_title"].'</b></h1>
           '.(count($secondary) > 0 ? '<h1>'.esc_html($secondary[0]).'</h1>' : ``).'
         </div>
-        <div>'.($post["post_content"]).'</div>
+        <div class="body">'.($post["post_content"]).'</div>
       </div>
     </div>
   </div>';
