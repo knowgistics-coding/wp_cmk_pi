@@ -72,7 +72,7 @@ function render_hignlight($post){
       <div class="thumbnail" style="background-image:url(\''.$post["get_thumbnail"].'\')"></div>
       <div class="content">
         <div class="mb-3">
-          <h1><b>'.$post["post_title"].'</b></h1>
+          <h1 style="color:#EA4335"><b>'.$post["post_title"].'</b></h1>
           '.(count($secondary) > 0 ? '<h1>'.esc_html($secondary[0]).'</h1>' : ``).'
         </div>
         <div class="body">'.($post["post_content"]).'</div>
