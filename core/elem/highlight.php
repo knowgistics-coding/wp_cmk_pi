@@ -43,6 +43,9 @@ function render_hignlight_css(){
     flex-direction: column;
     justify-content: center;
   }
+  .dnm-highlight .content h1 {
+    font-size:var(--font-xxl, 48px);
+  } 
   .dnm-highlight .content img {
     display: none;
   }
@@ -54,7 +57,7 @@ function render_hignlight($post){
     <div>
       <div class="thumbnail" style="background-image:url(\''.$post["get_thumbnail"].'\')"></div>
       <div class="content">
-        <div class="mb-3" style="font-size:var(--font-xxl, 48px);">
+        <div class="mb-3">
           <h1><b>'.$post["post_title"].'</b></h1>
           '.(count($secondary) > 0 ? '<h1>'.esc_html($secondary[0]).'</h1>' : ``).'
         </div>
