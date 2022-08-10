@@ -75,7 +75,7 @@ class DNM
   public function card($posts, $section)
   {
     echo '<div class="card-container">
-      ' . (isset($section["label"]) ? '<h2 style="text-align:center;font-weight:bold;margin-bottom:36px;">' . $section["label"] . '</h2>' : '') . '
+      ' . (isset($section["label"]) ? '<h2 style="text-align:center;font-weight:bold;margin-bottom:36px;font-size:var(--font-xxl);">' . $section["label"] . '</h2>' : '') . '
       <div class="container wrap">';
     foreach ($posts as $key => $post) {
       $post = $this->get_thumbnail($post, "medium");
