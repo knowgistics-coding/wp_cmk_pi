@@ -402,9 +402,9 @@
           }
 
           .category {
-            font-size: var(--font-xxs);
+            font-size: var(--font-xs);
             color: lighten($gray-base, 75%);
-            line-height: 1;
+            line-height: 1.3;
 
             a {
               color: inherit;
@@ -485,8 +485,8 @@
 
             h2 {
               font-size: var(--font-r);
-              font-weight: normal;
-              font-family: $defaultFont;
+              font-weight: bold;
+              font-family: "Prompt", "Noto Sans JP";
               margin-bottom: .25rem;
             }
           }

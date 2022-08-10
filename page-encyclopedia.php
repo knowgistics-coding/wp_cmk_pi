@@ -22,7 +22,8 @@ class Encyclopedia {
   }
   
   protected function render($posts){
-    $this->EnhanceSearchBox();
+    // $this->EnhanceSearchBox();
+    render_jp_encyclopedia_searchbox(get_the_post_thumbnail_url());
     $this->EnhanceResult($posts);
     
     $args = array(

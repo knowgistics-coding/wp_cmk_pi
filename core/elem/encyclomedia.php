@@ -65,7 +65,7 @@ function render_jp_encyclopedia_searchbox($bgImage)
   }
   </style>';
   echo '<div class="container" style="padding:0 1rem;">
-    <div class="encyclopedia-container" style="background-image:url(\''.$bgImage.'\')">
+    <div class="encyclopedia-container" style="background-image:url(\''.($bgImage).'\')">
       <div class="encyclopedia-absolute">
         <div class="encyclopedia-content" style="background-color:#faf7e8;padding: 1rem;">
           <h2 style="font-weight:bold;">สารานุกรมวัฒนธรรมญี่ปุ่น</h2>

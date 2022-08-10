@@ -50,7 +50,7 @@ function add_credit(v){
         if(!!snap.val().web){
           photocredit = `<a href="${snap.val().web}" target="_blank"><i class="fas fa-globe"></i> Photo Source</a>`;
         } else if(!!snap.val().credit) {
-          photocredit = `<i class="far fa-camera"></i> ${snap.val().credit}`;
+          photocredit = `<i class="far fa-copyright"></i> ${snap.val().credit}`;
         }
         if(!!photocredit){
           parent.append(`<span class="photo-credit">${photocredit}</span>`);
