@@ -61,7 +61,7 @@ firebase.initializeApp(config);
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/fa/css/all.min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/core/style.css?time=<?php echo time(); ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/core/style.css">
 <style type="text/css">
 :root {
   --body-bg: #<?php echo get_theme_mod('background_color','FFFFFF'); ?>;
