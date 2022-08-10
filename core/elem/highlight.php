@@ -49,7 +49,12 @@ function render_hignlight_css(){
   .dnm-highlight .content img {
     display: none;
   }
-  @media screen and (max-width: 768px){
+  @media screen and (max-width: 960px) and (min-width: 768px){
+    .dnm-highlight .content h1 {
+      font-size:var(--font-xl);
+    }
+  }
+  @media screen and (max-width: 767.99px){
     .dnm-highlight>div {
       flex-direction: column;
     }
@@ -59,9 +64,6 @@ function render_hignlight_css(){
     .dnm-highlight .content h1 {
       font-size:var(--font-l);
     }
-    // .dnm-highlight .content .body {
-    //   display: none;
-    // }
   }
   </style>';
 }
