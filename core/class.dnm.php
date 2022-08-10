@@ -80,7 +80,7 @@ class DNM
     foreach ($posts as $key => $post) {
       $post = $this->get_thumbnail($post, "medium");
       echo '<div class="custom-card">
-        <a class="post-thumbnail" href="' . get_permalink($post["ID"]) . '" target="_blank">' . ($post["thumbnail"] ?: '') . '</a>
+        <a class="post-thumbnail" href="' . get_permalink($post["ID"]) . '" target="_blank" style="filter:brightness(95%)">' . ($post["thumbnail"] ?: '') . '</a>
         <div class="entry-content"><div class="inner">
           <h2><a href="' . get_permalink($post["ID"]) . '" target="_blank" title="' . strip_tags(preg_replace("/\"|\'/", "", $post["post_title"])) . '">
             ' . $this->icon[$post["post_type"]] . ' ' . $this->slice_text($post["post_title"], null, 50) . '
