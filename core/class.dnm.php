@@ -74,16 +74,30 @@ class DNM
   }
   public function card($posts, $section)
   {
+    echo '<style>
+    .text-clamp {
+      /*
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    </style>';
     echo '<div class="card-container">
       ' . (isset($section["label"]) ? '<h2 style="text-align:center;font-weight:bold;margin-bottom:36px;font-size:var(--font-xxl);">' . $section["label"] . '</h2>' : '') . '
       <div class="container wrap">';
     foreach ($posts as $key => $post) {
       $post = $this->get_thumbnail($post, "medium");
+      $secondary = get_post_meta($post["ID"], 'phrain_secondaryTitle');
       echo '<div class="custom-card">
         <a class="post-thumbnail" href="' . get_permalink($post["ID"]) . '" target="_blank" style="filter:brightness(95%)">' . ($post["thumbnail"] ?: '') . '</a>
         <div class="entry-content"><div class="inner">
           <h2><a href="' . get_permalink($post["ID"]) . '" target="_blank" title="' . strip_tags(preg_replace("/\"|\'/", "", $post["post_title"])) . '">
             ' . $this->icon[$post["post_type"]] . ' ' . $this->slice_text($post["post_title"], null, 50) . '
+            ' . (count($secondary) > 0 ? '<span class="text-clamp" style="display:block;font-weight:normal;">' . $secondary[0] . '</span>' : '') . '
           </a></h2>
           <div class="category">' . implode(" | ", $this->get_post_category_link($post["ID"])) . '</div>
         </div></div>
@@ -175,11 +189,12 @@ class DNM
       });
     </script>';
   }
-  public function highlight($posts, $section){
-    if(count($posts)){
+  public function highlight($posts, $section)
+  {
+    if (count($posts)) {
       render_hignlight_css();
       echo '<div class="container px-3 py-5">';
-      foreach($posts as $post){
+      foreach ($posts as $post) {
         echo render_hignlight($this->get_thumbnail($post));
       }
       echo '</div>';
