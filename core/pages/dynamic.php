@@ -116,7 +116,8 @@
             <select class="form-control" ng-model="dnm.editValue.orderby">
               <option value="">-- select order --</option>
               <option value="title">Title</option>
-              <option value="modified">Date</option>
+              <option value="date">Date</option>
+              <option value="modified">Modified</option>
             </select>
             <select class="form-control" ng-model="dnm.editValue.order">
               <option value="">-- select sort --</option>
