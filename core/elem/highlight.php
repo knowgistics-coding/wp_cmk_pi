@@ -59,9 +59,15 @@ function render_hignlight_css()
   .dnm-highlight .content img {
     display: none;
   }
+  .dnm-highlight .content .body {
+    font-size: var(--font-l);
+  }
   @media screen and (max-width: 960px) and (min-width: 768px){
     .dnm-highlight .content h1 {
       font-size:var(--font-xl);
+    }
+    .dnm-highlight .content .body {
+      font-size: var(--font-m);
     }
   }
   @media screen and (max-width: 767.99px){
@@ -72,7 +78,10 @@ function render_hignlight_css()
       padding-top: calc(100% * 2);
     }
     .dnm-highlight .content h1 {
-      font-size:var(--font-l);
+      font-size:var(--font-xl);
+    }
+    .dnm-highlight .content .body {
+      font-size: var(--font-m);
     }
   }
   </style>';

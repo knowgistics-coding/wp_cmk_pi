@@ -199,7 +199,6 @@ class DNM
       }
       echo '</div>';
     }
-    // echo '<pre>'.htmlspecialchars(print_r($posts, true)).'</pre>';
   }
   public function jpaenc($posts, $section)
   {
