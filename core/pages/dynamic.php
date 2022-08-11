@@ -113,15 +113,15 @@
         <tr>
           <td>Order:</td>
           <td>
-            <select class="form-control" ng-model="dnm.editValue.orderBy">
+            <select class="form-control" ng-model="dnm.editValue.orderby">
               <option value="">-- select order --</option>
-              <option value="post_title">Title</option>
-              <option value="post_modified">Date</option>
+              <option value="title">Title</option>
+              <option value="modified">Date</option>
             </select>
             <select class="form-control" ng-model="dnm.editValue.order">
               <option value="">-- select sort --</option>
-              <option value="asc">asc</option>
-              <option value="desc">desc</option>
+              <option value="ASC">ASC</option>
+              <option value="DESC">DESC</option>
             </select>
           </td>
         </tr>
