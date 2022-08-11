@@ -2,6 +2,7 @@ class GallerySwiper {
   elem = "";
   postSwiper = null;
   list = [];
+  images = [];
 
   /**
    *
@@ -21,17 +22,36 @@ class GallerySwiper {
     }
   }
 
+  creditGen(data) {
+    if (data?.web || data?.credit) {
+      const credit = document.createElement("span");
+      credit.className = "photo-credit";
+      if (data?.web) {
+        credit.innerHTML = `<a href="${data.web}" target="_blank"><i class="fas fa-globe"></i> Photo Source</a>`;
+      } else if (data?.credit) {
+        credit.innerHTML = `<i class="far fa-copyright"></i> ${data.credit}`;
+      }
+      return credit;
+    }
+    return null;
+  }
+
   createSwiper() {
     $(this.elem + " .swiper-wrapper").text("");
-    this.list.forEach((url, index) => {
+    this.images.forEach((data, index) => {
       const image = document.createElement("img");
       image.className = "contain";
-      image.src = url;
+      image.src = data["2048"];
       image.style.cssText = "filter: brightness(100%)";
 
       const contain = document.createElement("div");
       contain.className = "swiper-slide";
       contain.appendChild(image);
+
+      const credit = this.creditGen(data);
+      if(credit){
+        contain.appendChild(credit);
+      }
 
       $(this.elem + " .swiper-wrapper").append(contain);
     });
@@ -60,21 +80,48 @@ class GallerySwiper {
     this.postSwiper.slideTo(index + 1);
   }
 
+  get_image_id(url) {
+    let exp = url.split(/%2F|\.s|\.m|\.l|\.jpg/i);
+    if (!!exp[1] ? exp[1].length == 32 : false) {
+      return exp[1];
+    } else {
+      return false;
+    }
+  }
+
   /**
    *
    * @param {Array<string>} list
    */
-  init() {
+  async init() {
+    const images = await Promise.all(
+      this.list
+        .map((url) => {
+          return this.get_image_id(url);
+        })
+        .map(
+          async (id) =>
+            await firebase.database().ref(`photoDB/${id}`).once("value")
+        )
+        .map(async (data) => (await data).val())
+    );
+    this.images = images;
+
     $(this.elem + " .post-gallery").text("");
-    this.list.forEach((url, index) => {
+    images.forEach((data, index) => {
       const image = document.createElement("img");
-      image.src = url;
+      image.src = data["320"];
       const container = document.createElement("div");
       container.className = "photo";
       container.appendChild(image);
       container.addEventListener("click", () => {
         this.changeSlide(index);
       });
+
+      const credit = this.creditGen(data)
+      if(credit){
+        container.appendChild(credit);
+      }
 
       $(this.elem + " .post-gallery").append(container);
     });

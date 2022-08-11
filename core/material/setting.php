@@ -100,7 +100,7 @@
 </section>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/core/material/material.js?time=<?php echo time(); ?>"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/core/material/material.js?time=202208111559"></script>
 <script>
   const app = angular.module("main-app", []);
   app.controller("main-ctrl", ["$scope", "$sce", function($scope, $sce) {

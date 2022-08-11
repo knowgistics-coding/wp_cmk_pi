@@ -15,13 +15,13 @@
   <div class="reading-area">
     <header class="entry-header">
       <section class="entry-header-title" style="margin-bottom:1rem;">
-      <?php the_title('<h1 class="entry-title" style="margin-bottom:0">', '</h1>'); ?>
-      <?php
+        <?php the_title('<h1 class="entry-title" style="margin-bottom:0">', '</h1>'); ?>
+        <?php
         $secondaryTitle = get_post_custom_values("phrain_secondaryTitle");
-        if(count($secondaryTitle) > 0){
-          echo '<h1 style="font-weight:normal">'.$secondaryTitle[0].'</h1>';
+        if (count($secondaryTitle) > 0) {
+          echo '<h1 style="font-weight:normal">' . $secondaryTitle[0] . '</h1>';
         }
-      ?>
+        ?>
       </section>
       <div class="entry-meta">
         <span class="mr-2"><i class="fas fa-pencil"></i>&nbsp;<?php echo date("F d, Y | H:i", get_post_modified_time()); ?></span>
@@ -101,30 +101,15 @@
   </div>
 </article><!-- #post-<?php the_ID(); ?> -->
 
-<script src="<?php echo get_template_directory_uri(); ?>/js/gallery.js?date=<?php echo time(); ?>"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/js/gallery.js?date=202208111559"></script>
 <script>
   $(function() {
     if (gallerylist.length > 0) {
       const gallery = new GallerySwiper("#gallery-swiper", gallerylist)
       gallery.init()
-
-      $('.entry-content img').each(function(k, v) {
-        add_credit(v)
-      });
-      $('.swiper-slide img').each(function(k, v) {
-        let id = get_image_id($(v).attr('src'));
-        firebase.database().ref(`photoDB/${id}`).once("value", snap => {
-          let srcset = "";
-          for (let k in snap.val()) {
-            if (!isNaN(k)) {
-              srcset += `${snap.val()[k]} ${k}w,`
-            }
-          }
-          if (!!srcset) {
-            $(v).attr('srcset', srcset);
-          }
-        });
-      });
     }
+    $('.entry-content img').each(function(k, v) {
+      add_credit(v)
+    });
   });
 </script>
