@@ -11,7 +11,7 @@ function get_complete_meta( $post_id, $meta_key ) {
 function ajax_enqueuescripts() {
   wp_localize_script( 'ajaxloadpost', 'ajax_postajax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 }
-add_action('wp_enqueue_scripts', ajax_enqueuescripts);
+add_action('wp_enqueue_scripts', "ajax_enqueuescripts");
 
 // Home Setting
 if(function_exists("phrain_theme_menu")==false){
