@@ -8,12 +8,10 @@ function get_complete_meta( $post_id, $meta_key ) {
   return false;
 }
 
-if( function_exists("ajax_enqueuescripts")==false ){
-  function ajax_enqueuescripts() {
-    wp_localize_script( 'ajaxloadpost', 'ajax_postajax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
-  }
-  add_action('wp_enqueue_scripts', ajax_enqueuescripts);
+function ajax_enqueuescripts() {
+  wp_localize_script( 'ajaxloadpost', 'ajax_postajax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 }
+add_action('wp_enqueue_scripts', ajax_enqueuescripts);
 
 // Home Setting
 if(function_exists("phrain_theme_menu")==false){
