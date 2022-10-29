@@ -12,8 +12,8 @@ class DNM
     $posttype = array_diff(array_values(get_post_types()), array("page", "attachment", "revision", "nav_menu_item", "custom_css", "customize_changeset", "oembed_cache", "user_request", "wp_block"));
     $args = array(
       'numberposts'       => $section["num"] ?: 8,
-      'orderby'           => $section["orderby"] ?: 'post_date',
-      'order'             => $section["order"] ?: 'DESC',
+      'orderby'           => isset($section["orderby"]) ? $section["orderby"] : 'post_date',
+      'order'             => isset($section["order"]) ? $section["order"] : 'DESC',
       'post_type'         => $posttype,
       'post_status'       => array('publish', 'private'),
     );
