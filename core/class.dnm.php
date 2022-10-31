@@ -11,7 +11,7 @@ class DNM
   {
     $posttype = array_diff(array_values(get_post_types()), array("page", "attachment", "revision", "nav_menu_item", "custom_css", "customize_changeset", "oembed_cache", "user_request", "wp_block"));
     $args = array(
-      'numberposts'       => $section["num"] ?: 8,
+      'numberposts'       => isset($section["num"]) ? $section["num"] : 8,
       'orderby'           => isset($section["orderby"]) ? $section["orderby"] : 'post_date',
       'order'             => isset($section["order"]) ? $section["order"] : 'DESC',
       'post_type'         => $posttype,
@@ -96,7 +96,7 @@ class DNM
         <a class="post-thumbnail" href="' . get_permalink($post["ID"]) . '" target="_blank" style="filter:brightness(95%)">' . ($post["thumbnail"] ?: '') . '</a>
         <div class="entry-content"><div class="inner">
           <h2><a href="' . get_permalink($post["ID"]) . '" target="_blank" title="' . strip_tags(preg_replace("/\"|\'/", "", $post["post_title"])) . '">
-            ' . $this->icon[$post["post_type"]] . ' ' . $this->slice_text($post["post_title"], null, 50) . '
+            ' . $this->slice_text($post["post_title"], null, 50) . '
             ' . (count($secondary) > 0 ? '<span class="text-clamp" style="display:block;font-weight:normal;">' . $secondary[0] . '</span>' : '') . '
           </a></h2>
           <div class="category">' . implode(" | ", $this->get_post_category_link($post["ID"])) . '</div>
