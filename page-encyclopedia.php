@@ -99,7 +99,7 @@ class Encyclopedia {
       if(isset($_POST["search"])){
         $titleBold = str_ireplace($_POST["search"], "<b>$_POST[search]</b>", $titleBold);
       }
-      echo '<tr id="post-'.$post["title"].'">
+      echo '<tr id="post-'.$post["post_title"].'">
         <td>
           <a href="'.esc_url( get_permalink($post["ID"]) ).'" target="_blank" style="color:#333">
             <i class="fas fa-chevron-right" style="color:var(--hilight-color);"></i> 
