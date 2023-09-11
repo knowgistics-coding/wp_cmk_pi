@@ -24,6 +24,7 @@ get_header();
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
+	<div id="rx-home"></div>
 
 <script>$(function(){ $('.site-main img').each((k,v)=>{add_credit(v)}) });</script>
 <?php

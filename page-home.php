@@ -267,7 +267,6 @@ class Encyclopedia {
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
-
 <script>$(function(){ $('.site-main img').each((k,v)=>{add_credit(v)}) });</script>
 <?php
 // get_sidebar();

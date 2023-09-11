@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "style.css",
+	"sources": [
+		"../src/style.scss"
+	],
+	"sourcesContent": [
+		".rx-highlight-container {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  flex-direction: column;\n  width: 100%;\n  gap: 1rem;\n  flex-wrap: wrap;\n\n  .rx-highlight {\n    display: flex;\n    aspect-ratio: 2 / 1;\n    background-color: #FFFFFF;\n    border: solid 1px #CCC;\n\n    >img {\n      display: block;\n      height: 100%;\n      aspect-ratio: 1 / 1;\n      object-fit: cover;\n    }\n  }\n}\n\n#colophon {\n  .container {\n    .widget_nav_menu {\n      a {\n        display: inline-flex;\n      }\n      .sub-menu {\n        padding-left: 1em;\n      }\n    }\n  }\n}"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,uBAAuB,AAAC,CACtB,OAAO,CAAE,IAAI,CACb,qBAAqB,CAAE,cAAc,CACrC,cAAc,CAAE,MAAM,CACtB,KAAK,CAAE,IAAI,CACX,GAAG,CAAE,IAAI,CACT,SAAS,CAAE,IAAI,CAehB,AArBD,AAQE,uBARqB,CAQrB,aAAa,AAAC,CACZ,OAAO,CAAE,IAAI,CACb,YAAY,CAAE,KAAK,CACnB,gBAAgB,CAAE,OAAO,CACzB,MAAM,CAAE,cAAc,CAQvB,AApBH,AAcI,uBAdmB,CAQrB,aAAa,CAMV,GAAG,AAAC,CACH,OAAO,CAAE,KAAK,CACd,MAAM,CAAE,IAAI,CACZ,YAAY,CAAE,KAAK,CACnB,UAAU,CAAE,KAAK,CAClB,AAIL,AAGM,SAHG,CACP,UAAU,CACR,gBAAgB,CACd,CAAC,AAAC,CACA,OAAO,CAAE,WAAW,CACrB,AALP,AAMM,SANG,CACP,UAAU,CACR,gBAAgB,CAId,SAAS,AAAC,CACR,YAAY,CAAE,GAAG,CAClB"
+}

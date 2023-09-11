@@ -211,16 +211,53 @@ function get_all_post_type()
   return array_diff(array_values(get_post_types()), array("page", "attachment", "revision", "nav_menu_item", "custom_css", "customize_changeset", "oembed_cache", "user_request", "wp_block"));
 }
 
-function cc_mime_types($mimes)
-{
-  $mimes['svg'] = 'image/svg+xml';
-  return $mimes;
-}
-add_filter('upload_mimes', 'cc_mime_types');
-
 require get_template_directory() . '/plugin-update-checker-master/plugin-update-checker.php';
 $myThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
   'https://johnjadd-3524a.firebaseio.com/wordpress/theme.json',
   __FILE__, //Full path to the main plugin file or functions.php.
   'cmk_pi'
 );
+
+// ANCHOR - Enqueue Scripts and Styles
+function cmk_pi_enqueue_script(){
+  wp_enqueue_script(
+    'cmk_script',
+    get_template_directory_uri() . '/dist/index.js',
+    array(),
+    filemtime(get_template_directory() . '/dist/index.js'),
+  );
+  wp_localize_script(
+    'cmk_script',
+    'cmk_pi',
+    array(
+      'ajaxurl' => admin_url('admin-ajax.php'),
+      'apijson' => site_url() . '/wp-json/wp/v2/',
+    )
+  );
+}
+add_action('wp_enqueue_scripts', 'cmk_pi_enqueue_script');
+add_action('admin_enqueue_scripts', 'cmk_pi_enqueue_script');
+
+// ANCHOR - SVG support
+function cmk_pi_mime_types($mimes){
+  $mimes['svg'] = 'image/svg+xml';
+  return $mimes;
+}
+add_filter('upload_mimes', 'cmk_pi_mime_types');
+
+// ANCHOR - Book Post Type
+function cmk_pi_book_post_type(){
+  if(!post_type_exists('book')){
+    register_post_type('book', array(
+      'labels' => array(
+        'name' => __('Books', 'cmk_pi'),
+        'singular_name' => __('Book', 'cmk_pi'),
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'menu_icon' => 'dashicons-book',
+      'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'comments'),
+    ));
+  }
+}
+add_action('init', 'cmk_pi_book_post_type');

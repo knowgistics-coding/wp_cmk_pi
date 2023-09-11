@@ -33,5 +33,15 @@ function cmk_pi_pingback_header() {
 	if ( is_singular() && pings_open() ) {
 		printf( '<link rel="pingback" href="%s">', esc_url( get_bloginfo( 'pingback_url' ) ) );
 	}
+	printf('<script>
+	window.apiurl = "'.site_url().'/wp-json/wp/v2";
+	</script>');
 }
 add_action( 'wp_head', 'cmk_pi_pingback_header' );
+
+function enqueue_assets()
+{
+    // wp_enqueue_script('rx', get_template_directory_uri().'/dist/index.js?time='.time());
+		wp_enqueue_style('rx', get_template_directory_uri().'/dist/style.css?time='.time());
+}
+add_action('wp_footer', 'enqueue_assets');

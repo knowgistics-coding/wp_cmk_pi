@@ -62,7 +62,7 @@ if(function_exists("phrain_dynamic_menu")==false){
   function dynamic_page_load(){
     header('Content-Type: application/json');
     // $metas = get_post_meta($_POST["data"],'dnm_section');
-    $metas = get_complete_meta($_POST["data"],'dnm_section');
+    $metas = get_complete_meta($_REQUEST["data"],'dnm_section');
     foreach($metas as $key=>$meta){ $metas[$key] = array( "value"=>json_decode($meta->meta_value,true), "prev_value"=>$meta->meta_value, "id"=>$meta->meta_id ); }
     echo json_encode($metas);
     wp_die();
@@ -130,11 +130,35 @@ if(function_exists("phrain_dynamic_menu")==false){
   add_action('wp_ajax_dynamic_update','dynamic_update');
   add_action('wp_ajax_nopriv_dynamic_update','dynamic_update');
 
+  // ANCHOR - Dynamic Add Section
+  function cmk_pi_dnm_add(){
+    header('Content-Type: application/json');
+    if(isset($_REQUEST["id"]) && isset($_REQUEST["value"])){
+      $value = json_decode(stripslashes($_REQUEST["value"]), true);
+      $result = add_post_meta(
+        $_REQUEST["id"],
+        "dnm_section",
+        json_encode( $value, JSON_UNESCAPED_UNICODE )
+      );
+      echo json_encode($res);
+    } else {
+      echo json_encode(false);
+    }
+    wp_die();
+  }
+  add_action('wp_ajax_dynamic_panel_add','cmk_pi_dnm_add');
+  add_action('wp_ajax_nopriv_dynamic_panel_add','cmk_pi_dnm_add');
+
   // Dynamic Update
   function dynamic_panel_update(){
     header('Content-Type: application/json');
-    $res = update_metadata_by_mid('post', $_POST["data"]["id"], json_encode($_POST["data"]["value"],JSON_UNESCAPED_UNICODE));
-    echo json_encode($res);
+    if(isset($_REQUEST["id"]) && isset($_REQUEST["value"])){
+      $value = json_decode(stripslashes($_REQUEST["value"]), true);
+      $result = update_metadata_by_mid('post', $_REQUEST["id"], json_encode($value,JSON_UNESCAPED_UNICODE));
+      echo json_encode($result);
+    } else {
+      echo json_encode(false);
+    }
     wp_die();
   }
   add_action('wp_ajax_dynamic_panel_update','dynamic_panel_update');
@@ -154,7 +178,7 @@ if(function_exists("phrain_dynamic_menu")==false){
   // Dynamic Remove
   function dynamic_panel_remove(){
     header('Content-Type: application/json');
-    $res = delete_metadata_by_mid('post', $_POST["data"]["id"]);
+    $res = delete_metadata_by_mid('post', $_REQUEST["id"]);
     echo json_encode($res);
     wp_die();
   }

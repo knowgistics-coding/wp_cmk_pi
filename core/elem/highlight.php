@@ -13,15 +13,11 @@ function render_hignlight_css()
     cursor: pointer;
     transition: all 0.25s;
     box-shadow: 0 0 0 rgba(0,0,0,0);
+    aspect-ratio: 3 / 1;
   }
   .dnm-highlight:hover {
     transform: translateY(-8px);
     box-shadow: 0 8px 8px rgba(0,0,0,0.125);
-  }
-  .dnm-highlight:before {
-    content: "";
-    display: block;
-    padding-top: calc(100% / 2);
   }
   .dnm-highlight:not(:last-child) {
     margin-bottom: 1rem;
@@ -42,7 +38,7 @@ function render_hignlight_css()
     filter: brightness(90%);
   }
   .dnm-highlight .content {
-    flex: 1;
+    flex: 2;
     box-sizing: border-box;
     border-style: solid;
     border-width: 0 1.5rem;
@@ -62,6 +58,9 @@ function render_hignlight_css()
   .dnm-highlight .content .body {
     font-size: var(--font-l);
   }
+  .dnm-highlight .content .body p {
+    margin: 0;
+  }
   @media screen and (max-width: 960px) and (min-width: 768px){
     .dnm-highlight .content h1 {
       font-size:var(--font-xl);
@@ -71,17 +70,20 @@ function render_hignlight_css()
     }
   }
   @media screen and (max-width: 767.99px){
+    .dnm-highlight {
+      aspect-ratio: 2 / 3;
+    }
     .dnm-highlight>div {
       flex-direction: column;
     }
-    .dnm-highlight:before {
-      padding-top: calc(100% * 2);
+    .dnm-highlight .content {
+      flex: 1
     }
     .dnm-highlight .content h1 {
-      font-size:var(--font-xl);
+      font-size:var(--font-l);
     }
     .dnm-highlight .content .body {
-      font-size: var(--font-m);
+      font-size: 1em;
     }
   }
   </style>';

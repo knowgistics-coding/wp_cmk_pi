@@ -272,6 +272,9 @@ class dnm_gen extends DNM
   {
     $sections = get_post_meta(get_the_ID(), "dnm_section");
     if (!empty($sections)) {
+      echo '<script>window.sections = '.json_encode(array_map(function($row){
+        return json_decode($row, true);
+      }, $sections)).';</script>';
       foreach ($sections as $json_section) {
         $section = json_decode($json_section, true);
         $posts = $this->query($section);

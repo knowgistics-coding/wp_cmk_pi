@@ -1,0 +1,3 @@
+.rx-highlight-container{display:grid;grid-template-columns:repeat(2, 1fr);flex-direction:column;width:100%;gap:1rem;flex-wrap:wrap}.rx-highlight-container .rx-highlight{display:flex;aspect-ratio:2 / 1;background-color:#FFFFFF;border:solid 1px #CCC}.rx-highlight-container .rx-highlight>img{display:block;height:100%;aspect-ratio:1 / 1;object-fit:cover}#colophon .container .widget_nav_menu a{display:inline-flex}#colophon .container .widget_nav_menu .sub-menu{padding-left:1em}
+
+/*# sourceMappingURL=style.css.map */
